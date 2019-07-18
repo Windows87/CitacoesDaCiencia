@@ -1,0 +1,24 @@
+{
+  "name": "science-quotes",
+  "version": "1.0.0",
+  "description": "API about Science Quotes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Windows87/CitacoesDasCiencias.git"
+  },
+  "author": "Yuri Faria",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Windows87/science-quotes/issues"
+  },
+  "homepage": "https://github.com/Windows87/science-quotes#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.5"
+  }
+}
