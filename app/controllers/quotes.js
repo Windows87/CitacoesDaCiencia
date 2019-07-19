@@ -2,6 +2,18 @@ const Quote = require('../models/Quote');
 
 const controller = {};
 
+controller.getRandom = async (req, res) => {
+  try {
+    const quotesLength = await Quote.count();
+    const randomQuote = Math.floor(Math.random() * quotesLength);
+    const quote = await Quote.findOne().skip(randomQuote).select('-__v');
+    res.json(quote);
+  } catch(error) {
+    res.status(500).json({ error: 'unknown error' });
+    console.log(`Error in Quote Get Random: ${error.message}`);    
+  }
+}
+
 controller.post = async (req, res) => {
   const { text, author, keywords, language, category } = req.body;
 
