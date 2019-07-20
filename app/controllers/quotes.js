@@ -2,6 +2,22 @@ const Quote = require('../models/Quote');
 
 const controller = {};
 
+controller.getOne = async (req, res) => {
+  const { _id } = req.params;
+
+  try {
+    const quote = await Quote.findOne({ _id }).select('-__v');
+
+    if(!quote)
+      return res.status(404).json({ error: `quote doesn't exist` });
+  
+    res.json(quote);
+  } catch(error) {
+    res.status(500).json({ error: 'unknown error' });
+    console.log(`Error in Quote Get One: ${error.message}`); 
+  }
+}
+
 controller.getRandom = async (req, res) => {
   try {
     const quotesLength = await Quote.count();
