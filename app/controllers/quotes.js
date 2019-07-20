@@ -95,4 +95,38 @@ controller.post = async (req, res) => {
   }
 }
 
+controller.put = async (req, res) => {
+  const { _id } = req.params;
+
+  try {
+    const quote = await Quote.findOne({ _id });
+
+    if(!quote)
+      return res.status(404).json({ error: `quote doesn't exist` });
+
+    await Quote.updateOne({ _id }, { $set: req.body });
+    res.json({ successfull: true });
+  } catch(error) {
+    res.status(500).json({ error: 'unknown error' });
+    console.log(`Error in Quote Put: ${error.message}`);    
+  }
+}
+
+controller.delete = async (req, res) => {
+  const { _id } = req.params;
+
+  try {
+    const quote = await Quote.findOne({ _id });
+
+    if(!quote)
+      return res.status(404).json({ error: `quote doesn't exist` });
+    
+    await Quote.deleteOne({ _id });
+    res.json({ successfull: true });
+  } catch(error) {
+    res.status(500).json({ error: 'unknown error' });
+    console.log(`Error in Quote Delete: ${error.message}`);    
+  }
+}
+
 module.exports = controller;
