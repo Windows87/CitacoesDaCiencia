@@ -2,6 +2,30 @@ const Quote = require('../models/Quote');
 
 const controller = {};
 
+controller.get = async (req, res) => {
+  let { limit, category, author, skip } = req.query;
+
+  limit = limit ? Number(limit) : 10;
+  skip = skip ? Number(skip) : 0;
+
+  const search = { category, author };
+
+  if(!category)
+    delete search.category;
+
+  if(!author)
+    delete search.author;
+
+  try {
+    const quotes = await Quote.find(search).limit(limit).skip(skip).select('-__v');
+
+    res.json(quotes);
+  } catch(error) {
+    res.status(500).json({ error: 'unknown error' });
+    console.log(`Error in Quote Get: ${error.message}`); 
+  }  
+}
+
 controller.getOne = async (req, res) => {
   const { _id } = req.params;
 
