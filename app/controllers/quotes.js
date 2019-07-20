@@ -3,18 +3,21 @@ const Quote = require('../models/Quote');
 const controller = {};
 
 controller.get = async (req, res) => {
-  let { limit, category, author, skip } = req.query;
+  let { limit, category, author, language, skip } = req.query;
 
   limit = limit ? Number(limit) : 10;
   skip = skip ? Number(skip) : 0;
 
-  const search = { category, author };
+  const search = { category, language, author };
 
   if(!category)
     delete search.category;
 
   if(!author)
     delete search.author;
+
+  if(!language)
+    delete search.language;
 
   try {
     const quotes = await Quote.find(search).limit(limit).skip(skip).select('-__v');
@@ -47,13 +50,16 @@ controller.getRandom = async (req, res) => {
 
   limit = limit ? Number(limit) : 1;
 
-  const search = { category, author };
+  const search = { category, language, author };
 
   if(!category)
     delete search.category;
 
   if(!author)
     delete search.author;
+
+  if(!language)
+    delete search.language;
 
   try {
     const quotesLength = await Quote.countDocuments(search);
