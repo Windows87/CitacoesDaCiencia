@@ -43,11 +43,23 @@ controller.getOne = async (req, res) => {
 }
 
 controller.getRandom = async (req, res) => {
+  let { limit, category, author } = req.query;
+
+  limit = limit ? Number(limit) : 1;
+
+  const search = { category, author };
+
+  if(!category)
+    delete search.category;
+
+  if(!author)
+    delete search.author;
+
   try {
-    const quotesLength = await Quote.count();
-    const randomQuote = Math.floor(Math.random() * quotesLength);
-    const quote = await Quote.findOne().skip(randomQuote).select('-__v');
-    res.json(quote);
+    const quotesLength = await Quote.countDocuments(search);
+    const randomQuote = Math.floor(Math.random() * quotesLength) - limit;
+    const quotes = await Quote.find(search).limit(limit).skip(randomQuote).select('-__v');
+    res.json(quotes);
   } catch(error) {
     res.status(500).json({ error: 'unknown error' });
     console.log(`Error in Quote Get Random: ${error.message}`);    
