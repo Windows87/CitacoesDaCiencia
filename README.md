@@ -5,7 +5,7 @@ This is a API written in NodeJS to get, post, update and delete quotes about any
 
 | Languages  | Quotes |
 |------------|--------|
-| Portuguese | 86     |
+| Portuguese | 128    |
 
 ## API Documentation
 
