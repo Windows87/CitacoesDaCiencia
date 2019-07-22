@@ -46,7 +46,7 @@ controller.getOne = async (req, res) => {
 }
 
 controller.getRandom = async (req, res) => {
-  let { limit, category, author } = req.query;
+  let { limit, category, language, author } = req.query;
 
   limit = limit ? Number(limit) : 1;
 
