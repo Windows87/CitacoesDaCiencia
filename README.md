@@ -46,6 +46,36 @@ mongo ## Start Mongo Server
 | author   | none    |
 | language | none    |
 
+* Request Example `/api/quotes/?limit=2&language=pt`
+
+* Successfull Response:
+```json
+[
+    {
+        "keywords": [
+            "átomo",
+            "preconceito"
+        ],
+        "category": "general",
+        "_id": "5d2fb1f5fe1e6e47b2dd2f87",
+        "text": "Triste época! É mais fácil desintegrar um átomo do que um preconceito.",
+        "author": "Albert Einstein",
+        "language": "pt"
+    },
+    {
+        "keywords": [
+            "mundo",
+            "ponto de apoio"
+        ],
+        "category": "general",
+        "_id": "5d2fb32a36da8247d42e3499",
+        "text": "Dai-me um ponto de apoio e levantarei o mundo.",
+        "author": "Arquimedes",
+        "language": "pt"
+    }
+]
+```
+
 ### Get Random Quotes
 * Method `GET`
 * URL `/api/quotes/random/`
@@ -58,12 +88,47 @@ mongo ## Start Mongo Server
 | author   | none    |
 | language | none    |
 
+* Request Example `/api/quotes/random/?language=pt`
+
+* Successfull Response:
+```json
+[
+    {
+        "keywords": [
+            "ciência"
+        ],
+        "category": "general",
+        "_id": "5d2fbd357a24dc4bc9cf970d",
+        "text": "O mais competente não discute, domina a sua ciência e cala-se.",
+        "author": "Voltaire",
+        "language": "pt"
+    }
+]
+```
+
 ### Get Quote
 * Method `GET`
 * URL `/api/quotes/id`
 * Params: `id`
 
-#### Insert Quote
+* Request Example `/api/quotes/5d2fb1f5fe1e6e47b2dd2f87`
+
+* Successfull Response:
+```json
+{
+    "keywords": [
+        "átomo",
+        "preconceito"
+    ],
+    "category": "general",
+    "_id": "5d2fb1f5fe1e6e47b2dd2f87",
+    "text": "Triste época! É mais fácil desintegrar um átomo do que um preconceito.",
+    "author": "Albert Einstein",
+    "language": "pt"
+}
+```
+
+### Insert Quote
 * Method `POST`
 * URL `/api/quotes/`
 * Body:
@@ -77,7 +142,6 @@ mongo ## Start Mongo Server
 | keyword  | true     | String Array |
 
 * Body Example:
-
 ```json
 {
 	"text": "De repente eu notei que aquela pequena e bela ervilha azul era a Terra. Eu levantei meu dedão e fechei um olho, e meu dedão cobriu totalmente a Terra. Eu não me senti um gigante. Me senti muito, muito pequeno.",
@@ -116,6 +180,15 @@ mongo ## Start Mongo Server
 | category | false    | String       |
 | keyword  | false    | String Array |
 
+* Request Example `/api/quotes/5d2fb32a36da8247d42e3499`
+
+* Body Example
+```json
+{
+    "category": "fisica"
+}
+```
+
 * Successfull Response:
 ```json
 {
@@ -127,6 +200,8 @@ mongo ## Start Mongo Server
 * Method `DELETE`
 * URL `/api/quotes/id`
 * Params: `id`
+
+* Request Example `/api/quotes/5d2fb32a36da8247d42e3499`
 
 * Successfull Response:
 ```json
